@@ -232,4 +232,12 @@ public interface BaseEsConstants {
      * 查询
      */
     String QUERY = "query";
+
+    /**
+     * 忽略大小写key
+     */
+    String CUSTOM_TYPE = "index.analysis.normalizer.lowercase_normalizer.type";
+    String CUSTOM_FILTER = "index.analysis.normalizer.lowercase_normalizer.filter";
+    String NORMALIZER = "normalizer";
+    String LOWERCASE_NORMALIZER = "lowercase_normalizer";
 }

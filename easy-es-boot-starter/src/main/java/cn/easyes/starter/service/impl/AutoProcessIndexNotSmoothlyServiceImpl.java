@@ -41,9 +41,11 @@ public class AutoProcessIndexNotSmoothlyServiceImpl implements AutoProcessIndexS
         boolean existsIndex = IndexUtils.existsIndexWithRetry(entityInfo, client);
         if (existsIndex) {
             // 更新
+            LogUtils.info("===> Index exists, automatically updating index by easy-es...");
             return doUpdateIndex(entityInfo, client);
         } else {
             // 新建
+            LogUtils.info("===> Index not exists, automatically creating index by easy-es...");
             return doCreateIndex(entityInfo, client);
         }
     }

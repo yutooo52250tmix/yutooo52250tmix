@@ -110,6 +110,20 @@ public class IndexUtils {
 
             // 最大返回个数
             Optional.ofNullable(indexParam.getMaxResultWindow()).ifPresent(maxResultWindow -> settings.put(MAX_RESULT_WINDOW_FIELD, maxResultWindow));
+
+            // 忽略大小写配置
+            if (CollectionUtils.isNotEmpty(indexParam.getEsIndexParamList())) {
+                indexParam.getEsIndexParamList()
+                        .stream()
+                        .filter(EsIndexParam::isIgnoreCase)
+                        .findFirst()
+                        .ifPresent(i -> {
+                            // 只要有其中一个字段加了忽略大小写,则在索引中创建此自定义配置,否则无需创建,不浪费资源
+                            settings.put(CUSTOM_TYPE, "custom");
+                            settings.put(CUSTOM_FILTER, "lowercase");
+                        });
+            }
+
             createIndexRequest.settings(settings);
         } else {
             // 用户自定义settings
@@ -392,6 +406,11 @@ public class IndexUtils {
             Map<String, Object> info = new HashMap<>();
             Optional.ofNullable(indexParam.getDateFormat()).ifPresent(format -> info.put(BaseEsConstants.FORMAT, indexParam.getDateFormat()));
 
+            // 是否忽略大小写
+            if (indexParam.isIgnoreCase()) {
+                info.put(NORMALIZER, LOWERCASE_NORMALIZER);
+            }
+
             // 设置type
             if (FieldType.KEYWORD_TEXT.getType().equals(indexParam.getFieldType())) {
                 info.put(BaseEsConstants.TYPE, FieldType.TEXT.getType());
@@ -565,7 +584,7 @@ public class IndexUtils {
                         esIndexParam.setSearchAnalyzer(field.getSearchAnalyzer());
                     }
                 }
-
+                esIndexParam.setIgnoreCase(field.isIgnoreCase());
                 Optional.ofNullable(field.getParentName()).ifPresent(esIndexParam::setParentName);
                 Optional.ofNullable(field.getChildName()).ifPresent(esIndexParam::setChildName);
                 esIndexParamList.add(esIndexParam);

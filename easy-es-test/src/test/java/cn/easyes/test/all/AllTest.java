@@ -63,6 +63,7 @@ public class AllTest {
         // 测试插入数据
         Document document = new Document();
         document.setEsId("1");
+        document.setCaseTest("Test");
         document.setTitle("测试文档1");
         document.setContent("测试内容1");
         document.setCreator("老汉1");
@@ -226,6 +227,15 @@ public class AllTest {
         wrapper.match(Document::getCustomField, "字段");
         List<Document> documents = documentMapper.selectList(wrapper);
         Assertions.assertEquals(22, documents.size());
+    }
+
+    @Test
+    @Order(6)
+    public void testIgnoreCase(){
+        LambdaEsQueryWrapper<Document> wrapper = new LambdaEsQueryWrapper<>();
+        wrapper.eq(Document::getCaseTest,"test");
+        List<Document> documents = documentMapper.selectList(wrapper);
+        Assertions.assertEquals(1,documents.size());
     }
 
     @Test
@@ -907,5 +917,4 @@ public class AllTest {
                 .or(i -> i.eq("business_type", 2).in("state", 2, 3));
         documentMapper.selectList(wrapper);
     }
-
 }

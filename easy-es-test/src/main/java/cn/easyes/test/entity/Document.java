@@ -14,7 +14,7 @@ import java.util.List;
  **/
 @Data
 @Accessors(chain = true)
-@IndexName(value = "easyes_document", shardsNum = 3, replicasNum = 2, keepGlobalPrefix = true, childClass = Comment.class,routing = "testRouting")
+@IndexName(value = "easyes_document", shardsNum = 3, replicasNum = 2, keepGlobalPrefix = true, childClass = Comment.class, routing = "testRouting")
 public class Document {
     /**
      * es中的唯一id,字段名随便起,我这里演示用esId,你也可以用id(推荐),bizId等.
@@ -76,6 +76,12 @@ public class Document {
      */
     @IndexField(value = "wu-la", fieldType = FieldType.TEXT, analyzer = Analyzer.IK_SMART, searchAnalyzer = Analyzer.IK_SMART)
     private String customField;
+
+    /**
+     * 忽略大小写字段，此字段的值用eq查询(termQuery)时，不区分大小写，值得注意的是es中keyword类型字段才支持忽略大小写
+     */
+    @IndexField(fieldType = FieldType.KEYWORD, ignoreCase = true)
+    private String caseTest;
 
     /**
      * 高亮返回值被映射的字段

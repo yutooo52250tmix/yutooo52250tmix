@@ -44,6 +44,10 @@ public class EntityFieldInfo {
      */
     private boolean fieldData;
     /**
+     * 字段是否忽略大小写，默认不忽略 为true时则忽略大小写
+     */
+    private boolean ignoreCase;
+    /**
      * 分词器
      */
     private String analyzer;

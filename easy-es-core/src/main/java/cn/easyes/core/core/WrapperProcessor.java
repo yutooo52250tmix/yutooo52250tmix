@@ -1,6 +1,5 @@
 package cn.easyes.core.core;
 
-import cn.easyes.common.constants.BaseEsConstants;
 import cn.easyes.common.enums.AggregationTypeEnum;
 import cn.easyes.common.enums.EsQueryTypeEnum;
 import cn.easyes.common.utils.*;

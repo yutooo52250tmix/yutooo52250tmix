@@ -73,6 +73,13 @@ public @interface IndexField {
     String dateFormat() default "";
 
     /**
+     * 是否忽略大小写 默认 false 不忽略，为true时则大小写不敏感，都可查
+     *
+     * @return 是否忽略大小写
+     */
+    boolean ignoreCase() default false;
+
+    /**
      * 默认嵌套类
      *
      * @return 默认嵌套类

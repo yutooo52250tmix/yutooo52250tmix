@@ -314,8 +314,13 @@ public class EntityInfoHelper {
                 entityFieldInfo.setDateFormat(tableField.dateFormat());
             }
 
-            // 其它
+            // 是否忽略大小写
             FieldType fieldType = FieldType.getByType(IndexUtils.getEsFieldType(tableField.fieldType(), field.getType().getSimpleName()));
+            if (FieldType.KEYWORD.equals(fieldType)) {
+                // 仅对keyword类型设置,其它类型es不支持
+                entityFieldInfo.setIgnoreCase(tableField.ignoreCase());
+            }
+            // 其它
             entityFieldInfo.setMappingColumn(mappingColumn);
             entityFieldInfo.setAnalyzer(tableField.analyzer());
             entityFieldInfo.setSearchAnalyzer(tableField.searchAnalyzer());
@@ -432,6 +437,10 @@ public class EntityInfoHelper {
                     entityFieldInfo.setColumnType(fieldType.getType());
                     entityFieldInfo.setAnalyzer(tableField.analyzer());
                     entityFieldInfo.setSearchAnalyzer(tableField.searchAnalyzer());
+                    if (FieldType.KEYWORD.equals(fieldType)) {
+                        // 仅对keyword类型设置,其它类型es不支持
+                        entityFieldInfo.setIgnoreCase(tableField.ignoreCase());
+                    }
                     if (StringUtils.isNotBlank(tableField.dateFormat())) {
                         entityFieldInfo.setDateFormat(tableField.dateFormat());
                     }
