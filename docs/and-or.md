@@ -102,7 +102,7 @@ queryStringQuery(String queryString);
         System.out.println(documents);
     }
 ```
-前端参数页面每传递一行查询参数,我们往sb中append对应参数就完事了,是不是很简单,没错,但是代码不优雅,可咋整? 老汉已经给你们想好出路了,我们提供了工具类,其全路径为:cn.easyes.core.toolkit.QueryUtils
+前端参数页面每传递一行查询参数,我们往sb中append对应参数就完事了,是不是很简单,没错,但是代码不优雅,可咋整? 老汉已经给你们想好出路了,我们提供了工具类,其全路径为:QueryUtils
 我们用使用该工具类重构上面的代码,如下:
 ```java
     @Test

@@ -100,7 +100,7 @@ The above picture is taken as an example, I will demonstrate a scenario, please 
         System.out.println(documents);
     }
 ````
-Every time a line of query parameters is passed on the front-end parameter page, we append the corresponding parameters to sb and we are done. class, its full path is: cn.easyes.core.toolkit.QueryUtils
+Every time a line of query parameters is passed on the front-end parameter page, we append the corresponding parameters to sb and we are done. class, its full path is: QueryUtils
 We refactor the above code using this utility class as follows:
 ````java
     @Test
